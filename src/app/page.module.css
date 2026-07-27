@@ -342,7 +342,7 @@
 /* Lower Grid */
 .lowerGrid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 1.5rem;
   margin-bottom: 4rem;
 }
@@ -376,6 +376,7 @@
   border: 1px solid var(--border);
   border-radius: 8px;
   padding: 1.25rem;
+  background-color: #eff6ff;
 }
 
 .pubTitleRow {
@@ -394,6 +395,15 @@
 .completedBadge {
   background-color: #eff6ff;
   color: var(--primary);
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+}
+
+.ongoingBadge {
+  background-color: #fef3c7;
+  color: #d97706;
   font-size: 0.75rem;
   font-weight: 600;
   padding: 0.25rem 0.75rem;
@@ -434,6 +444,52 @@
   height: auto;
   margin-bottom: 1rem;
   border-radius: 4px;
+}
+
+/* Contact Section */
+.contactSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 8rem 0;
+  border-top: 1px solid var(--border);
+}
+
+.contactTitle {
+  font-size: 4rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.5rem;
+  color: var(--foreground);
+}
+
+.contactDesc {
+  max-width: 600px;
+  font-size: 1.125rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 2.5rem;
+}
+
+.contactBtn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.875rem 2rem;
+  border-radius: 9999px; /* Fully rounded pill shape */
+  font-weight: 600;
+  font-size: 1rem;
+  background-color: var(--primary);
+  color: white;
+  transition: all 0.2s;
+}
+
+.contactBtn:hover {
+  background-color: var(--primary-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px -1px rgb(37 99 235 / 0.4);
 }
 
 /* Footer */
