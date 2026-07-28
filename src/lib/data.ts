@@ -73,10 +73,19 @@ export const projects: Project[] = [
   }
 ];
 
-export const publication: Publication = {
-  title: "Object Detection in Adverse Weather Using YOLO and Explainable AI",
-  status: "Ongoing",
-  tech: "YOLOv11, PyTorch, OpenCV, XAI",
-  metrics: "mAP50, Precision, Recall, F1-score",
-  url: "#"
-};
+export const publications: Publication[] = [
+  {
+    title: "Object Detection in Adverse Weather Using YOLO and Explainable AI",
+    status: "Ongoing",
+    tech: "YOLOv11, PyTorch, OpenCV, XAI",
+    metrics: "mAP50, Precision, Recall, F1-score",
+    url: "#"
+  },
+  {
+    title: "AI-Based Crop Suitability Prediction Using GIS and Remote Sensing",
+    status: "Completed",
+    tech: "Python, Machine Learning, GIS, Remote Sensing",
+    metrics: "Accuracy, Precision, Recall, F1-score, AUC",
+    url: "#"
+  }
+];

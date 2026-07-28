@@ -54,7 +54,8 @@ CREATE TABLE public.research_publications (
 
 -- Seed Research
 INSERT INTO public.research_publications (title, status, tech, metrics, url) VALUES
-('Object Detection in Adverse Weather Using YOLO and Explainable AI', 'Ongoing', 'YOLOv11, PyTorch, OpenCV, XAI', 'mAP50, Precision, Recall, F1-score', '#');
+('Object Detection in Adverse Weather Using YOLO and Explainable AI', 'Ongoing', 'YOLOv11, PyTorch, OpenCV, XAI', 'mAP50, Precision, Recall, F1-score', '#'),
+('AI-Based Crop Suitability Prediction Using GIS and Remote Sensing', 'Completed', 'Python, Machine Learning, GIS, Remote Sensing', 'Accuracy, Precision, Recall, F1-score, AUC', '#');
 
 -- Set up Row Level Security (RLS) so anyone can read this public data
 ALTER TABLE public.skills ENABLE ROW LEVEL SECURITY;

@@ -1,7 +1,7 @@
 import { supabase } from "@/lib/supabase";
 import PortfolioUI from "@/components/PortfolioUI";
 // Fallback local data if Supabase fetch fails (e.g. if tables don't exist yet)
-import { skills as fallbackSkills, projects as fallbackProjects, publication as fallbackPub } from "@/lib/data";
+import { skills as fallbackSkills, projects as fallbackProjects, publications as fallbackPubs } from "@/lib/data";
 
 export default async function Home() {
   // Fetch Skills
@@ -18,9 +18,7 @@ export default async function Home() {
   // Fetch Research
   const { data: researchData, error: researchError } = await supabase
     .from("research_publications")
-    .select("*")
-    .limit(1)
-    .single();
+    .select("*");
 
   // If there's an error (e.g., tables not created yet), use fallback data
   const skills = skillsData && skillsData.length > 0 ? skillsData : fallbackSkills;
@@ -37,13 +35,13 @@ export default async function Home() {
         is_featured: p.isFeatured
       }));
 
-  const publication = researchData || fallbackPub;
+  const publications = researchData && researchData.length > 0 ? researchData : fallbackPubs;
 
   return (
     <PortfolioUI 
       skills={skills}
       projects={projects}
-      publication={publication}
+      publications={publications}
     />
   );
 }

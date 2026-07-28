@@ -18,7 +18,7 @@ import { motion } from "framer-motion";
 import dynamic from "next/dynamic";
 const GitHubCalendar = dynamic(() => import("react-github-calendar").then((mod) => mod.GitHubCalendar), { ssr: false });
 
-import React from "react";
+import React, { useState } from "react";
 
 const GithubIcon = ({ size = 24 }: { size?: number }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
@@ -45,7 +45,8 @@ const iconMap: Record<string, React.ReactNode> = {
   Microscope: <Microscope size={18} className={styles.badgeIcon} />
 };
 
-export default function PortfolioUI({ skills, projects, publication }: { skills: any[], projects: any[], publication: any }) {
+export default function PortfolioUI({ skills, projects, publications }: { skills: any[], projects: any[], publications: any[] }) {
+  const [showEmail, setShowEmail] = useState(false);
   const roleSkills = skills.filter(s => s.category === "Role");
   const techSkills = skills.filter(s => s.category === "Technology");
 
@@ -53,7 +54,7 @@ export default function PortfolioUI({ skills, projects, publication }: { skills:
     <main className={styles.container}>
       {/* Navbar */}
       <nav className={styles.navbar}>
-        <div className={styles.logo}>Washim <span className={styles.nameHighlight}>Akram</span></div>
+        <div className={styles.logo}></div>
         
         <div className={styles.navLinks}>
           <Link href="#about" className={styles.navLink}>
@@ -74,7 +75,7 @@ export default function PortfolioUI({ skills, projects, publication }: { skills:
           <Link href="https://github.com/WashimAkram1134" target="_blank" className={styles.socialIcon}>
             <GithubIcon size={24} />
           </Link>
-          <Link href="https://linkedin.com/" target="_blank" className={styles.socialIcon}>
+          <Link href="https://www.linkedin.com/in/washim-akram-a60a72361/" target="_blank" className={styles.socialIcon}>
             <LinkedinIcon size={24} />
           </Link>
         </div>
@@ -90,7 +91,7 @@ export default function PortfolioUI({ skills, projects, publication }: { skills:
         </h1>
         
         <h2 className={styles.subtitle}>
-          AI Engineer <span>•</span> Machine Learning Student <span>•</span> Software Engineer
+          AI Engineer <span>•</span> ML Engineer <span>•</span> Software Engineer
         </h2>
         
         <p className={styles.description}>
@@ -194,24 +195,28 @@ export default function PortfolioUI({ skills, projects, publication }: { skills:
         {/* Lower Grid (Research & Github) */}
         <div className={styles.lowerGrid}>
           {/* Research Box */}
-          {publication && (
+          {publications && publications.length > 0 && (
             <motion.div className={styles.infoCard} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUpVariant}>
               <div className={styles.cardHeader}>
                 <div className={styles.cardIconWrapper}><FileText size={20} color="var(--primary)"/></div>
                 Research & Publication
               </div>
-              <div className={styles.publicationBox}>
-                <div className={styles.pubTitleRow}>
-                  <div className={styles.pubTitle}>{publication.title}</div>
-                <span className={publication.status === 'Ongoing' ? styles.ongoingBadge : styles.completedBadge}>
-                  {publication.status}
-                </span>
-                </div>
-                <div className={styles.pubDetail}>Tech: {publication.tech}</div>
-                <div className={styles.pubDetail}>Metrics: {publication.metrics}</div>
-                <Link href={publication.url || "#"} className={styles.projectLink} style={{marginTop: '1rem'}}>
-                  View Details <ArrowUpRight size={14}/>
-                </Link>
+              <div style={{ maxHeight: '300px', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '1rem', paddingRight: '0.5rem' }}>
+                {publications.map((pub, idx) => (
+                  <div key={idx} className={styles.publicationBox}>
+                    <div className={styles.pubTitleRow}>
+                      <div className={styles.pubTitle}>{pub.title}</div>
+                      <span className={pub.status === 'Ongoing' ? styles.ongoingBadge : styles.completedBadge}>
+                        {pub.status}
+                      </span>
+                    </div>
+                    <div className={styles.pubDetail}>Tech: {pub.tech}</div>
+                    <div className={styles.pubDetail}>Metrics: {pub.metrics}</div>
+                    <Link href={pub.url || "#"} className={styles.projectLink} style={{marginTop: '1rem'}}>
+                      View Details <ArrowUpRight size={14}/>
+                    </Link>
+                  </div>
+                ))}
               </div>
             </motion.div>
           )}
@@ -257,22 +262,33 @@ export default function PortfolioUI({ skills, projects, publication }: { skills:
           Whether you have a project, a job opportunity, or just want to connect —
           let&apos;s talk!
         </motion.p>
-        <motion.a 
-          href="mailto:washimakram@example.com" 
-          className={styles.contactBtn}
-          initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUpVariant}
-        >
-          <Mail size={18} />
-          Get in Touch
-        </motion.a>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem' }}>
+          <motion.a 
+            href="https://mail.google.com/mail/?view=cm&fs=1&to=washimakram013099@gmail.com" 
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.contactBtn}
+            initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUpVariant}
+            onClick={() => setShowEmail(true)}
+          >
+            <Mail size={18} />
+            Get in Touch
+          </motion.a>
+          {showEmail && (
+            <motion.div 
+              initial={{ opacity: 0, y: -10 }} 
+              animate={{ opacity: 1, y: 0 }} 
+              style={{ color: 'var(--text-muted)', fontSize: '1.1rem', fontWeight: 600 }}
+            >
+              washimakram013099@gmail.com
+            </motion.div>
+          )}
+        </div>
       </section>
 
       {/* Footer */}
       <footer className={styles.footer}>
         <div>© 2026 Washim Akram. All rights reserved.</div>
-        <div className={styles.footerRight}>
-          Built with ❤️ using Next.js, CSS Modules & Framer Motion
-        </div>
       </footer>
     </main>
   );
